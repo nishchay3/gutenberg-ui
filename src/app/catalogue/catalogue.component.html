@@ -1,1 +1,32 @@
-<p>catalogue works!</p>
+<div class="container-fluid d-flex flex-column min-vh-100">
+    <div class="justify-content-center pt-5 px-2 px-row-custom row">
+        <div class="col-auto w-100">
+            <div class="d-flex flex-row mb-3">
+                <img class="img-fluid" src="../../assets/new-assets/Back.svg" alt="Back.svg" [routerLink]="['/']">
+                <p class="heading2 mb-0 ms-2">
+                    {{genre}}
+                </p>
+            </div>
+            <div class="input-group search-box mb-3">
+                <img class="img-fluid ms-auto input-group-text border-0 pe-0" id="addon-wrapping"
+                    src="../../assets/new-assets/Search.svg" alt="Search.svg">
+                <input type="text" class="form-control border-0 shadow-none" placeholder="Search" aria-label="Search"
+                    aria-describedby="addon-wrapping">
+            </div>
+
+        </div>
+    </div>
+    <div class="flex-grow-1 justify-content-center pt-auto pt-md-4 px-2 px-row-custom px-md-custom row row-bg">
+        <div class="col-auto d-flex flex-wrap justify-content-center">
+            <div *ngFor="let book of bookList; index as i" class="book-card d-flex flex-column mb-5 me-4 mt-3">
+                <img class="book-img" [src]="book?.formats['image/jpeg']" alt="book.svg">
+                <div class="book-name mt-2">
+                    <p class="mb-0">{{book?.title | uppercase}}</p>
+                </div>
+                <div class="book-author">
+                    <p class="mb-0">{{book?.authors[0]?.name}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
