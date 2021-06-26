@@ -1,0 +1,47 @@
+.row1-bg {
+    background-image: url("../../assets/new-assets/Pattern.svg");
+    background-color: #F8F7FF;
+}
+
+.row2-bg {
+    background-color: #F8F7FF;
+}
+
+.heading1 {
+    font-family: 'Montserrat-SemiBold';
+    font-size: 48px;
+    color: #5E56E7;
+}
+
+.body {
+    width: 92%;
+    font-family: 'Montserrat-Regular';
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.genre-card {
+    background: white;
+    border-radius: 4px;
+    padding-inline: 10px;
+    height: 50px;
+    box-shadow: 0 2px 5px 0 rgba(211, 209, 238, 0.5);
+    font-family: 'Montserrat-Regular';
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.card-img {
+    width: 24px;
+}
+
+@media (min-width: 768px){
+    .px-md-custom {
+        padding-right: 13rem!important;
+        padding-left: 13rem!important;
+    }
+    .px-row-custom {
+        padding-right: 15vw !important;
+        padding-left: 15vw !important;
+    }
+}
