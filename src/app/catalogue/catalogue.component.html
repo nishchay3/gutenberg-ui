@@ -1,4 +1,8 @@
 <div class="container-fluid d-flex flex-column min-vh-100">
+    <div class="alert alert-danger alert-dismissible fade show w-50 position-fixed bottom-0 align-self-center" role="alert" *ngIf="showNotFoundError">
+        No viewable version available.
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" (click)="showNotFoundError=false"></button>
+    </div>
     <div class="justify-content-center pt-5 px-2 px-row-custom row">
         <div class="col-auto w-100">
             <div class="d-flex flex-row mb-3">
@@ -18,7 +22,8 @@
     </div>
     <div class="flex-grow-1 justify-content-center pt-auto pt-md-4 px-2 px-row-custom px-md-custom row row-bg">
         <div class="col-auto d-flex flex-wrap justify-content-center">
-            <div *ngFor="let book of bookList; index as i" class="book-card d-flex flex-column mb-5 me-4 mt-3">
+            <div *ngFor="let book of bookList; trackBy:trackByBookId"
+                class="book-card d-flex flex-column mb-5 me-4 mt-3" (click)="openBook(book)">
                 <img class="book-img" [src]="book?.formats['image/jpeg']" alt="book.svg">
                 <div class="book-name mt-2">
                     <p class="mb-0">{{book?.title | uppercase}}</p>
