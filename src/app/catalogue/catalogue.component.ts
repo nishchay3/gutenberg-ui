@@ -1,7 +1,8 @@
-import { Component, HostListener, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
-import { CatalogueService } from './catalogue.service';
+import { BookData } from './models/book-data';
+import { CatalogueService } from './services/catalogue.service';
 
 @Component({
   selector: 'app-catalogue',
@@ -17,8 +18,16 @@ export class CatalogueComponent implements OnInit {
   errorMessage: string = '';
   searchTerm$ = new Subject<string>();
 
-  constructor(private route: ActivatedRoute, private catalogueService: CatalogueService, private router: Router) {
-    this.catalogueService.searchByTerm(this.searchTerm$).subscribe(data => {
+  @ViewChild('search') searchBox;
+
+  constructor(private route: ActivatedRoute, private catalogueService: CatalogueService) { }
+
+  ngOnInit(): void {
+    this.genre = this.route.snapshot.paramMap.get('genre');
+    this.genre = this.genre.charAt(0).toUpperCase() + this.genre.slice(1);
+    this.catalogueService.genre = this.genre;
+    this.getAllByGenre();
+    this.catalogueService.searchByTerm(this.searchTerm$).subscribe((data: BookData) => {
       this.bookList = data.results;
       this.nextPage = data.next;
     }, (error) => {
@@ -28,15 +37,8 @@ export class CatalogueComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
-    this.genre = this.route.snapshot.paramMap.get('genre');
-    this.genre = this.genre.charAt(0).toUpperCase() + this.genre.slice(1);
-    this.catalogueService.genre = this.genre;
-    this.getAllByGenre();
-  }
-
-  getAllByGenre() {
-    this.catalogueService.getAllGenre().subscribe((data) => {
+  getAllByGenre(): void {
+    this.catalogueService.getAllGenre().subscribe((data: BookData) => {
       if (data) {
         this.bookList = data.results;
         this.nextPage = data.next;
@@ -52,7 +54,7 @@ export class CatalogueComponent implements OnInit {
   onScroll(): void {
     if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
       if (this.nextPage) {
-        this.catalogueService.getNextPage(this.nextPage).subscribe((data) => {
+        this.catalogueService.getNextPage(this.nextPage).subscribe((data: BookData) => {
           this.bookList.push(...data.results);
           this.nextPage = data.next;
         }, (error) => {
@@ -64,11 +66,11 @@ export class CatalogueComponent implements OnInit {
     }
   }
 
-  trackByBookId(index: number, bookList: any) {
+  trackByBookId(index: number, bookList: any): number {
     return bookList.id;
   }
 
-  openBook(book: any) {
+  openBook(book: any): void {
     let formats = book.formats;
     let availableFormats = {
       html: null,
@@ -87,15 +89,20 @@ export class CatalogueComponent implements OnInit {
       }
     }
     if (availableFormats.html) {
-      window.location.href = availableFormats.html;
+      window.open(availableFormats.html, "_blank");
     } else if (availableFormats.pdf) {
-      window.location.href = availableFormats.pdf;
+      window.open(availableFormats.pdf, "_blank");
     } else if (availableFormats.text) {
-      window.location.href = availableFormats.text;
+      window.open(availableFormats.text, "_blank");
     } else {
       this.errorMessage = "No viewable version available.";
       this.showError = true;
     }
+  }
+
+  clearSearch(): void {
+    this.searchBox.nativeElement.value = '';
+    this.searchTerm$.next('');
   }
 
 }

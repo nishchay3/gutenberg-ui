@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { CatalogueComponent } from './catalogue/catalogue.component';
-import { CatalogueService } from './catalogue/catalogue.service';
+import { CatalogueService } from './catalogue/services/catalogue.service';
 import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
