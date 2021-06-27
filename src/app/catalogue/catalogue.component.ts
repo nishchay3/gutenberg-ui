@@ -13,7 +13,8 @@ export class CatalogueComponent implements OnInit {
   genre: string = '';
   nextPage: string = '';
   bookList = [];
-  showNotFoundError: boolean = false;
+  showError: boolean = false;
+  errorMessage: string = '';
   searchTerm$ = new Subject<string>();
 
   constructor(private route: ActivatedRoute, private catalogueService: CatalogueService, private router: Router) {
@@ -22,6 +23,8 @@ export class CatalogueComponent implements OnInit {
       this.nextPage = data.next;
     }, (error) => {
       console.log(error);
+      this.errorMessage = "Server Unreachable!";
+      this.showError = true;
     });
   }
 
@@ -40,6 +43,8 @@ export class CatalogueComponent implements OnInit {
       }
     }, (error) => {
       console.log(error);
+      this.errorMessage = "Server Unreachable!";
+      this.showError = true;
     })
   }
 
@@ -52,6 +57,8 @@ export class CatalogueComponent implements OnInit {
           this.nextPage = data.next;
         }, (error) => {
           console.log(error);
+          this.errorMessage = "Server Unreachable!";
+          this.showError = true;
         });
       }
     }
@@ -86,7 +93,8 @@ export class CatalogueComponent implements OnInit {
     } else if (availableFormats.text) {
       window.location.href = availableFormats.text;
     } else {
-      this.showNotFoundError = true;
+      this.errorMessage = "No viewable version available.";
+      this.showError = true;
     }
   }
 
