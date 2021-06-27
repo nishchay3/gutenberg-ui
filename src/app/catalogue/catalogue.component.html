@@ -18,9 +18,8 @@
                 <img class="img-fluid ms-auto input-group-text border-0 pe-0" id="addon-wrapping"
                     src="../../assets/new-assets/Search.svg" alt="Search.svg">
                 <input type="text" #search class="form-control border-0 shadow-none" placeholder="Search"
-                    aria-label="Search" aria-describedby="addon-wrapping"
-                    (keyup)="searchTerm$.next($event.target.value)">
-                <button class="btn shadow-none" type="button" (click)="clearSearch()">
+                    aria-label="Search" aria-describedby="addon-wrapping" (keyup)="searchTerm($event.target.value)">
+                <button class="btn shadow-none" *ngIf="searchBoxDirty" type="button" (click)="clearSearch()">
                     <img class="img-fluid" id="addon-wrapping" src="../../assets/new-assets/Cancel.svg"
                         alt="Cancel.svg">
                 </button>

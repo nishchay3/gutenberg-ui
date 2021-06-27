@@ -13,10 +13,11 @@ export class CatalogueComponent implements OnInit {
 
   genre: string = '';
   nextPage: string = '';
-  bookList = [];
+  bookList: Array<any> = [];
   showError: boolean = false;
   errorMessage: string = '';
-  searchTerm$ = new Subject<string>();
+  searchTerm$: Subject<string> = new Subject<string>();
+  searchBoxDirty: boolean = false;
 
   @ViewChild('search') searchBox;
 
@@ -100,9 +101,19 @@ export class CatalogueComponent implements OnInit {
     }
   }
 
+  searchTerm(term): void {
+    this.searchTerm$.next(term);
+    if (term.length > 0) {
+      this.searchBoxDirty = true;
+    } else {
+      this.searchBoxDirty = false;
+    }
+  }
+
   clearSearch(): void {
     this.searchBox.nativeElement.value = '';
     this.searchTerm$.next('');
+    this.searchBoxDirty = false;
   }
 
 }
