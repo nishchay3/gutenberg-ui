@@ -20,11 +20,11 @@ Run `ng build` to build the project. The build artifacts will be stored in the `
 
 ### Web
 ![image](https://user-images.githubusercontent.com/62929166/123552316-3ab46f80-d793-11eb-8cd3-e66f076d9347.png)
-![image](https://user-images.githubusercontent.com/62929166/123552344-528bf380-d793-11eb-8780-ae00594dcb15.png)
+![image](https://user-images.githubusercontent.com/62929166/123553340-350d5880-d798-11eb-8fb1-1361860abebc.png)
 ![image](https://user-images.githubusercontent.com/62929166/123552366-6b94a480-d793-11eb-8997-04feff2bf1ac.png)
 ![image](https://user-images.githubusercontent.com/62929166/123552387-8ebf5400-d793-11eb-9f17-c8b8b79d43a6.png)
 
 ### Mobile
 ![image](https://user-images.githubusercontent.com/62929166/123552454-d6de7680-d793-11eb-80ad-cc43cfbc85d4.png)
-![image](https://user-images.githubusercontent.com/62929166/123552461-e6f65600-d793-11eb-8698-aa162ff2b2d2.png)
+![image](https://user-images.githubusercontent.com/62929166/123553388-84ec1f80-d798-11eb-97ec-97a3da6a2170.png)
 ![image](https://user-images.githubusercontent.com/62929166/123552480-f83f6280-d793-11eb-87fe-ebad28d47a27.png)
