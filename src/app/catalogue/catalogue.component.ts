@@ -1,5 +1,6 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Subject } from 'rxjs';
 import { CatalogueService } from './catalogue.service';
 
 @Component({
@@ -13,8 +14,16 @@ export class CatalogueComponent implements OnInit {
   nextPage: string = '';
   bookList = [];
   showNotFoundError: boolean = false;
+  searchTerm$ = new Subject<string>();
 
-  constructor(private route: ActivatedRoute, private catalogueService: CatalogueService, private router: Router) { }
+  constructor(private route: ActivatedRoute, private catalogueService: CatalogueService, private router: Router) {
+    this.catalogueService.searchByTerm(this.searchTerm$).subscribe(data => {
+      this.bookList = data.results;
+      this.nextPage = data.next;
+    }, (error) => {
+      console.log(error);
+    });
+  }
 
   ngOnInit(): void {
     this.genre = this.route.snapshot.paramMap.get('genre');
@@ -36,11 +45,13 @@ export class CatalogueComponent implements OnInit {
 
   @HostListener("window:scroll", [])
   onScroll(): void {
-    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 1) {
+    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
       if (this.nextPage) {
         this.catalogueService.getNextPage(this.nextPage).subscribe((data) => {
           this.bookList.push(...data.results);
           this.nextPage = data.next;
+        }, (error) => {
+          console.log(error);
         });
       }
     }

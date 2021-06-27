@@ -1,12 +1,15 @@
 <div class="container-fluid d-flex flex-column min-vh-100">
-    <div class="alert alert-danger alert-dismissible fade show w-50 position-fixed bottom-0 align-self-center" role="alert" *ngIf="showNotFoundError">
+    <div class="alert alert-danger alert-dismissible fade show w-50 position-fixed bottom-0 align-self-center body"
+        role="alert" *ngIf="showNotFoundError">
         No viewable version available.
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" (click)="showNotFoundError=false"></button>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"
+            (click)="showNotFoundError=false"></button>
     </div>
     <div class="justify-content-center pt-5 px-2 px-row-custom row">
         <div class="col-auto w-100">
             <div class="d-flex flex-row mb-3">
-                <img class="img-fluid" src="../../assets/new-assets/Back.svg" alt="Back.svg" [routerLink]="['/']">
+                <img class="img-fluid cursor-pointer" src="../../assets/new-assets/Back.svg" alt="Back.svg"
+                    [routerLink]="['/']">
                 <p class="heading2 mb-0 ms-2">
                     {{genre}}
                 </p>
@@ -15,7 +18,7 @@
                 <img class="img-fluid ms-auto input-group-text border-0 pe-0" id="addon-wrapping"
                     src="../../assets/new-assets/Search.svg" alt="Search.svg">
                 <input type="text" class="form-control border-0 shadow-none" placeholder="Search" aria-label="Search"
-                    aria-describedby="addon-wrapping">
+                    aria-describedby="addon-wrapping" (keyup)="searchTerm$.next($event.target.value)">
             </div>
 
         </div>
