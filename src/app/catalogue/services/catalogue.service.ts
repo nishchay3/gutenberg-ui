@@ -10,7 +10,7 @@ import { BookData } from '../models/book-data';
 export class CatalogueService {
 
   genre: string = "";
-  private URL: string = "http://skunkworks.ignitesol.com:8000/books";
+  private URL: string = "https://gutendex.com/books";
 
   constructor(private http: HttpClient, private router: Router) { }
 
