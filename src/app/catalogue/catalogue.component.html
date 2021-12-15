@@ -27,7 +27,7 @@
 
         </div>
     </div>
-    <div class="flex-grow-1 pt-auto pt-md-4 px-2 pb-4 px-row-custom px-md-custom row row-bg">
+    <div class="flex-grow-1 pt-auto pt-md-4 px-2 pb-4 px-row-custom px-md-custom row row-bg" *ngIf="!isLoading">
         <div class="col-auto d-flex flex-wrap justify-content-center">
             <div *ngFor="let book of bookList; trackBy:trackByBookId"
                 class="book-card d-flex flex-column mb-5 mt-3 mx-auto mx-md-3" (click)="openBook(book)">
@@ -39,6 +39,12 @@
                     <p class="mb-0">{{book?.authors[0]?.name}}</p>
                 </div>
             </div>
+        </div>
+    </div>
+    <div class="flex-grow-1 pt-auto pt-md-4 px-2 pb-4 px-row-custom px-md-custom row row-bg"
+        *ngIf="isLoading || isInfiniteLoading || isSearched">
+        <div class="spinner-border loader" role="status">
+            <span class="sr-only"></span>
         </div>
     </div>
 </div>

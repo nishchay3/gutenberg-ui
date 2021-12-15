@@ -18,6 +18,9 @@ export class CatalogueComponent implements OnInit {
   errorMessage: string = '';
   searchTerm$: Subject<string> = new Subject<string>();
   searchBoxDirty: boolean = false;
+  isLoading: boolean = true;
+  isInfiniteLoading: boolean = false;
+  isSearched: boolean = false;
 
   @ViewChild('search') searchBox;
 
@@ -29,6 +32,7 @@ export class CatalogueComponent implements OnInit {
     this.catalogueService.genre = this.genre;
     this.getAllByGenre();
     this.catalogueService.searchByTerm(this.searchTerm$).subscribe((data: BookData) => {
+      this.isLoading = false;
       this.bookList = data.results;
       this.nextPage = data.next;
     }, (error) => {
@@ -39,8 +43,10 @@ export class CatalogueComponent implements OnInit {
   }
 
   getAllByGenre(): void {
+    this.isLoading = true;
     this.catalogueService.getAllGenre().subscribe((data: BookData) => {
       if (data) {
+        this.isLoading = false;
         this.bookList = data.results;
         this.nextPage = data.next;
       }
@@ -55,7 +61,9 @@ export class CatalogueComponent implements OnInit {
   onScroll(): void {
     if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
       if (this.nextPage) {
+        this.isInfiniteLoading = true;
         this.catalogueService.getNextPage(this.nextPage).subscribe((data: BookData) => {
+          this.isInfiniteLoading = false;
           this.bookList.push(...data.results);
           this.nextPage = data.next;
         }, (error) => {
@@ -102,6 +110,7 @@ export class CatalogueComponent implements OnInit {
   }
 
   searchTerm(term): void {
+    this.isLoading = true;
     this.searchTerm$.next(term);
     if (term.length > 0) {
       this.searchBoxDirty = true;
@@ -111,6 +120,7 @@ export class CatalogueComponent implements OnInit {
   }
 
   clearSearch(): void {
+    this.isLoading = true;
     this.searchBox.nativeElement.value = '';
     this.searchTerm$.next('');
     this.searchBoxDirty = false;
